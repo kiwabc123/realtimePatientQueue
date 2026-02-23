@@ -8,19 +8,12 @@ import type { Patient, PatientStatus } from '@/types';
 
 type SortOption = 'name' | 'time' | 'status';
 
+
 export default function StaffPage() {
-  const { isConnected, patients, getPatientList } = useSSE();
+  const { isConnected, patients } = useSSE();
   const [sortBy, setSortBy] = useState<SortOption>('time');
   const [filterStatus, setFilterStatus] = useState<PatientStatus | 'ALL'>('ALL');
   const [filteredPatients, setFilteredPatients] = useState<Patient[]>([]);
-
-  useEffect(() => {
-    if (isConnected) {
-      getPatientList((list) => {
-        setFilteredPatients(list);
-      });
-    }
-  }, [isConnected, getPatientList]);
 
   useEffect(() => {
     let filtered = patients;

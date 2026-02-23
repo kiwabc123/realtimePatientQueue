@@ -17,6 +17,21 @@ export function useSSE(): UseSSEReturn {
   const [isConnected, setIsConnected] = useState(false);
   const [patients, setPatients] = useState<Patient[]>([]);
 
+  // Load initial patient list from server
+  useEffect(() => {
+    const loadInitialPatients = async () => {
+      try {
+        const response = await fetch('/api/patient/list');
+        const data = await response.json();
+        setPatients(data.patients || []);
+      } catch (error) {
+        console.error('Error loading initial patients:', error);
+      }
+    };
+
+    loadInitialPatients();
+  }, []);
+
   // Initialize SSE connection
   useEffect(() => {
     const connectSSE = () => {
