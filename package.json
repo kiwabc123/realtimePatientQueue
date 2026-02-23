@@ -4,8 +4,9 @@
   "private": true,
   "scripts": {
     "dev": "tsx watch server.ts",
+    "dev:next": "next dev",
     "build": "next build",
-    "start": "node server.js",
+    "start": "next start",
     "lint": "next lint"
   },
   "dependencies": {
@@ -14,7 +15,7 @@
     "next": "^15.0.0",
     "socket.io": "^4.7.2",
     "socket.io-client": "^4.7.2",
-    "typescript": "^7.0.0",
+    "typescript": "^5.6.0",
     "@types/node": "^20.10.6",
     "@types/react": "^18.2.46",
     "@types/react-dom": "^18.2.18",

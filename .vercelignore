@@ -1,0 +1,9 @@
+.git
+.gitignore
+README.md
+Dockerfile
+docker-compose.yml
+start-docker.bat
+start-docker.sh
+.npmrc
+.dockerignore
