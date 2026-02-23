@@ -22,17 +22,10 @@
     "noUnusedLocals": false,
     "noUnusedParameters": false,
     "noFallthroughCasesInSwitch": true,
-    "ignoreDeprecations": "6.0",
     "verbatimModuleSyntax": false,
     "preserveValueImports": false,
-    /* Path mapping */
-    "baseUrl": ".",
     "paths": {
-      // "@/*": [
-      //   "src/*"
-      // ]
-       "@/*": ["src/*", "*"]
-      // "@/*": ["./*"]
+      "@/*": ["./src/*"]
     },
     "allowJs": true,
     "incremental": true,
