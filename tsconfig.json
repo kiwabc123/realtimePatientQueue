@@ -23,6 +23,8 @@
     "noUnusedParameters": false,
     "noFallthroughCasesInSwitch": true,
     "ignoreDeprecations": "6.0",
+    "verbatimModuleSyntax": true,
+    "preserveValueImports": false,
     /* Path mapping */
     "baseUrl": ".",
     "paths": {
