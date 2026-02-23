@@ -74,10 +74,10 @@ export default function StaffPage() {
 
           {/* Connection Status */}
           <div className={`flex items-center gap-2 text-sm font-semibold p-4 rounded-lg mb-6 ${
-            isConnected ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'
+            isConnected ? 'bg-green-100 text-green-800' : 'bg-yellow-100 text-yellow-800'
           }`}>
-            <span className={`w-3 h-3 rounded-full ${isConnected ? 'bg-green-600' : 'bg-red-600'}`}></span>
-            {isConnected ? 'Connected to Server' : 'Connecting...'}
+            <span className={`w-3 h-3 rounded-full ${isConnected ? 'bg-green-600' : 'bg-yellow-600'}`}></span>
+            {isConnected ? 'Connected to Server' : 'Server Not Available - Real-time updates disabled'}
           </div>
         </div>
 

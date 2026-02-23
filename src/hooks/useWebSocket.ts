@@ -38,6 +38,11 @@ export function useWebSocket(): UseWebSocketReturn {
       setIsConnected(false);
     });
 
+    socketRef.current.on('connect_error', (error) => {
+      console.error('WebSocket connection error:', error);
+      setIsConnected(false);
+    });
+
     socketRef.current.on('patient:updated', (patient: Patient) => {
       setPatients((prevPatients) => {
         const exists = prevPatients.find((p) => p.sessionId === patient.sessionId);
