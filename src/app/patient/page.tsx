@@ -13,13 +13,13 @@ export default function PatientPage() {
   const [patientId, setPatientId] = useState<string>('');
 
   useEffect(() => {
-    if (isConnected && !sessionId) {
+    if (!sessionId) {
       registerPatient((data) => {
         setSessionId(data.sessionId);
         setPatientId(data.patientId);
       });
     }
-  }, [isConnected, sessionId, registerPatient]);
+  }, [sessionId, registerPatient]);
 
   const handleInputChange = (data: Partial<PatientFormData>) => {
     if (sessionId) {
@@ -57,10 +57,10 @@ export default function PatientPage() {
 
           {/* Connection Status */}
           <div className={`flex items-center gap-2 text-sm font-semibold p-4 rounded-lg ${
-            isConnected ? 'bg-green-100 text-green-800' : 'bg-yellow-100 text-yellow-800'
+            isConnected ? 'bg-green-100 text-green-800' : 'bg-blue-100 text-blue-800'
           }`}>
-            <span className={`w-3 h-3 rounded-full ${isConnected ? 'bg-green-600' : 'bg-yellow-600'}`}></span>
-            {isConnected ? 'Connected to Server' : 'Server Not Available - Form will be accepted but real-time updates disabled'}
+            <span className={`w-3 h-3 rounded-full ${isConnected ? 'bg-green-600' : 'bg-blue-600'}`}></span>
+            {isConnected ? 'Real-time Updates Enabled' : 'Form Submission Ready (Real-time updates unavailable)'}
           </div>
         </div>
 
