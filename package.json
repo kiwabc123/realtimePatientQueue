@@ -3,8 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "tsx watch server.ts",
-    "dev:next": "next dev",
+    "dev": "next dev",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
@@ -27,5 +26,5 @@
     "eslint": "^8.56.0",
     "eslint-config-next": "^15.0.0",
     "tsx": "^4.7.0"
-  }
+}
 }

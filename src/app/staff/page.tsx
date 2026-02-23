@@ -2,14 +2,14 @@
 
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
-import { useWebSocket } from '@/hooks/useWebSocket';
+import { useSSE } from '@/hooks/useSSE';
 import { PatientCard } from '@/components/ui/PatientCard';
 import type { Patient, PatientStatus } from '@/types';
 
 type SortOption = 'name' | 'time' | 'status';
 
 export default function StaffPage() {
-  const { isConnected, patients, getPatientList } = useWebSocket();
+  const { isConnected, patients, getPatientList } = useSSE();
   const [sortBy, setSortBy] = useState<SortOption>('time');
   const [filterStatus, setFilterStatus] = useState<PatientStatus | 'ALL'>('ALL');
   const [filteredPatients, setFilteredPatients] = useState<Patient[]>([]);

@@ -2,12 +2,12 @@
 
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
-import { useWebSocket } from '@/hooks/useWebSocket';
+import { useSSE } from '@/hooks/useSSE';
 import { PatientForm } from '@/components/PatientForm';
 import type { PatientFormData } from '@/types';
 
 export default function PatientPage() {
-  const { registerPatient, updatePatient, submitPatient, isConnected } = useWebSocket();
+  const { registerPatient, updatePatient, submitPatient, isConnected } = useSSE();
   const [sessionId, setSessionId] = useState<string>('');
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [patientId, setPatientId] = useState<string>('');
