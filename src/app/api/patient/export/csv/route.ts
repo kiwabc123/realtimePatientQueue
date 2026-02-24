@@ -1,6 +1,19 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { patients } from '@/lib/patientStore';
 
+// Helper function to properly escape CSV fields
+function escapeCSVField(field: string | null | undefined): string {
+  if (field === null || field === undefined) {
+    return '';
+  }
+  const stringField = String(field);
+  // If field contains comma, newline, or double quote, wrap in quotes and escape inner quotes
+  if (stringField.includes(',') || stringField.includes('\n') || stringField.includes('"')) {
+    return `"${stringField.replace(/"/g, '""')}"`;
+  }
+  return stringField;
+}
+
 export async function GET(request: NextRequest) {
   try {
     const patientList = Array.from(patients.values());
@@ -29,21 +42,21 @@ export async function GET(request: NextRequest) {
       'Notes',
     ];
 
-    // Create CSV rows
+    // Create CSV rows with proper escaping
     const rows = patientList.map((patient) => [
-      patient.id,
-      patient.firstName,
-      patient.lastName,
-      patient.email,
-      patient.phoneNumber,
-      patient.dateOfBirth,
-      patient.gender,
-      patient.address,
-      patient.nationality,
-      patient.status,
-      new Date(patient.createdAt).toLocaleString(),
-      new Date(patient.lastUpdated).toLocaleString(),
-      `"${(patient.notes || '').replace(/"/g, '""')}"`, // Escape quotes in notes
+      escapeCSVField(patient.id),
+      escapeCSVField(patient.firstName),
+      escapeCSVField(patient.lastName),
+      escapeCSVField(patient.email),
+      escapeCSVField(patient.phoneNumber),
+      escapeCSVField(patient.dateOfBirth),
+      escapeCSVField(patient.gender),
+      escapeCSVField(patient.address),
+      escapeCSVField(patient.nationality),
+      escapeCSVField(patient.status),
+      escapeCSVField(new Date(patient.createdAt).toLocaleString()),
+      escapeCSVField(new Date(patient.lastUpdated).toLocaleString()),
+      escapeCSVField(patient.notes || ''),
     ]);
 
     // Combine headers and rows

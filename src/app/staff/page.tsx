@@ -85,6 +85,30 @@ export default function StaffPage() {
     }
   };
 
+  const handleExportXLSX = async () => {
+    try {
+      const response = await fetch('/api/patient/export/xlsx');
+      if (!response.ok) {
+        const errorData = await response.json();
+        alert(`Error: ${errorData.error}\n${errorData.message || ''}`);
+        return;
+      }
+      const data = await response.text();
+      const blob = new Blob([data], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `patients_${new Date().getTime()}.xlsx`;
+      document.body.appendChild(a);
+      a.click();
+      window.URL.revokeObjectURL(url);
+      document.body.removeChild(a);
+    } catch (error) {
+      console.error('Error exporting XLSX:', error);
+      alert('Failed to export XLSX');
+    }
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-indigo-50 to-blue-100 py-8 px-4 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto">
@@ -175,6 +199,12 @@ export default function StaffPage() {
               📥 Export CSV
             </button>
             <button
+              onClick={handleExportXLSX}
+              className="flex-1 bg-yellow-600 hover:bg-yellow-700 text-white font-semibold py-2 px-4 rounded-lg transition"
+            >
+              📊 Export XLSX
+            </button>
+            <button
               onClick={handleExportPDF}
               className="flex-1 bg-red-600 hover:bg-red-700 text-white font-semibold py-2 px-4 rounded-lg transition"
             >
@@ -184,7 +214,7 @@ export default function StaffPage() {
               href="/admin"
               className="flex-1 bg-purple-600 hover:bg-purple-700 text-white font-semibold py-2 px-4 rounded-lg transition text-center"
             >
-              📊 Analytics
+              📈 Analytics
             </Link>
           </div>
         </div>

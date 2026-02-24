@@ -80,3 +80,78 @@ export function registerPatient(): { sessionId: string; patientId: string; patie
 export function getAllPatients(): Patient[] {
   return Array.from(patients.values());
 }
+
+// Seed with demo data for testing
+function seedDemoPatients() {
+  const demoPatients: Array<{ sessionId: string; patient: Omit<Patient, 'id' | 'sessionId'> }> = [
+    {
+      sessionId: 'demo-001',
+      patient: {
+        firstName: 'John',
+        middleName: '',
+        lastName: 'Smith',
+        dateOfBirth: '1985-03-15',
+        gender: 'Male',
+        phoneNumber: '+1234567890',
+        email: 'john.smith@example.com',
+        address: '123 Main St, City, State 12345',
+        preferredLanguage: 'English',
+        nationality: 'United States',
+        status: 'SUBMITTED',
+        createdAt: new Date(Date.now() - 86400000), // 1 day ago
+        lastUpdated: new Date(Date.now() - 3600000), // 1 hour ago
+        notes: 'Demo patient for testing exports',
+      },
+    },
+    {
+      sessionId: 'demo-002',
+      patient: {
+        firstName: 'Sarah',
+        middleName: 'Marie',
+        lastName: 'Johnson',
+        dateOfBirth: '1992-07-22',
+        gender: 'Female',
+        phoneNumber: '+1987654321',
+        email: 'sarah.johnson@example.com',
+        address: '456 Oak Ave, Town, State 54321',
+        preferredLanguage: 'English',
+        nationality: 'United States',
+        status: 'ACTIVELY_FILLING',
+        createdAt: new Date(Date.now() - 3600000), // 1 hour ago
+        lastUpdated: new Date(Date.now() - 300000), // 5 minutes ago
+        notes: 'Currently filling out registration form',
+      },
+    },
+    {
+      sessionId: 'demo-003',
+      patient: {
+        firstName: 'Michael',
+        middleName: 'David',
+        lastName: 'Williams',
+        dateOfBirth: '1978-11-08',
+        gender: 'Male',
+        phoneNumber: '+1555123456',
+        email: 'michael.williams@example.com',
+        address: '789 Pine Rd, Village, State 99999',
+        preferredLanguage: 'English',
+        nationality: 'Canada',
+        status: 'REGISTERED',
+        createdAt: new Date(Date.now() - 172800000), // 2 days ago
+        lastUpdated: new Date(Date.now() - 172800000),
+        notes: 'Awaiting appointment confirmation',
+      },
+    },
+  ];
+
+  demoPatients.forEach(({ sessionId, patient }) => {
+    const fullPatient: Patient = {
+      ...patient,
+      id: generateId(),
+      sessionId,
+    };
+    patients.set(sessionId, fullPatient);
+  });
+}
+
+// Initialize demo data on startup
+seedDemoPatients();
