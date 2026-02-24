@@ -47,6 +47,44 @@ export default function StaffPage() {
     INACTIVE: patients.filter((p) => p.status === 'INACTIVE').length,
   };
 
+  const handleExportCSV = async () => {
+    try {
+      const response = await fetch('/api/patient/export/csv');
+      const csv = await response.text();
+      const blob = new Blob([csv], { type: 'text/csv' });
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `patients_${new Date().getTime()}.csv`;
+      document.body.appendChild(a);
+      a.click();
+      window.URL.revokeObjectURL(url);
+      document.body.removeChild(a);
+    } catch (error) {
+      console.error('Error exporting CSV:', error);
+      alert('Failed to export CSV');
+    }
+  };
+
+  const handleExportPDF = async () => {
+    try {
+      const response = await fetch('/api/patient/export/pdf');
+      const html = await response.text();
+      const blob = new Blob([html], { type: 'text/html' });
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `patients_${new Date().getTime()}.html`;
+      document.body.appendChild(a);
+      a.click();
+      window.URL.revokeObjectURL(url);
+      document.body.removeChild(a);
+    } catch (error) {
+      console.error('Error exporting PDF:', error);
+      alert('Failed to export PDF');
+    }
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-indigo-50 to-blue-100 py-8 px-4 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto">
@@ -96,7 +134,7 @@ export default function StaffPage() {
 
         {/* Filters and Sorting */}
         <div className="bg-white rounded-lg shadow p-4 sm:p-6 mb-8">
-          <div className="flex flex-col sm:flex-row gap-4 sm:items-end">
+          <div className="flex flex-col sm:flex-row gap-4 sm:items-end mb-4">
             {/* Status Filter */}
             <div className="flex-1">
               <label className="block text-sm font-semibold text-gray-700 mb-2">Filter by Status</label>
@@ -126,6 +164,28 @@ export default function StaffPage() {
                 <option value="status">Status</option>
               </select>
             </div>
+          </div>
+
+          {/* Export Buttons */}
+          <div className="flex flex-col sm:flex-row gap-3">
+            <button
+              onClick={handleExportCSV}
+              className="flex-1 bg-green-600 hover:bg-green-700 text-white font-semibold py-2 px-4 rounded-lg transition"
+            >
+              📥 Export CSV
+            </button>
+            <button
+              onClick={handleExportPDF}
+              className="flex-1 bg-red-600 hover:bg-red-700 text-white font-semibold py-2 px-4 rounded-lg transition"
+            >
+              📄 Export PDF
+            </button>
+            <Link
+              href="/admin"
+              className="flex-1 bg-purple-600 hover:bg-purple-700 text-white font-semibold py-2 px-4 rounded-lg transition text-center"
+            >
+              📊 Analytics
+            </Link>
           </div>
         </div>
 

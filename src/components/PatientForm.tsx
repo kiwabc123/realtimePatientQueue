@@ -164,6 +164,7 @@ export function PatientForm({ onSubmit, onInputChange }: PatientFormProps) {
         title: 'Invalid Email',
         text: emailError,
         confirmButtonColor: '#3085d6',
+        position: 'top-end',
       });
       return;
     }
@@ -175,6 +176,7 @@ export function PatientForm({ onSubmit, onInputChange }: PatientFormProps) {
         title: 'Invalid Phone Number',
         text: phoneError,
         confirmButtonColor: '#3085d6',
+        position: 'top-end',
       });
       return;
     }
@@ -188,6 +190,7 @@ export function PatientForm({ onSubmit, onInputChange }: PatientFormProps) {
       title: 'Success!',
       text: 'Patient registration submitted successfully',
       confirmButtonColor: '#3085d6',
+      position: 'top-end',
     });
     
     setTimeout(() => setIsSubmitting(false), 2000);
@@ -322,7 +325,7 @@ export function PatientForm({ onSubmit, onInputChange }: PatientFormProps) {
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           {/* Phone Prefix */}
           <div>
-            <label htmlFor="phonePrefix" className="block text-sm font-semibold text-gray-700 mb-2">
+            <label htmlFor="phonePrefix" className="block text-sm font-semibold text-gray-600 mb-2">
               Phone Prefix <span className="text-red-600">*</span>
             </label>
             <select
@@ -331,7 +334,7 @@ export function PatientForm({ onSubmit, onInputChange }: PatientFormProps) {
               value={phonePrefix}
               onChange={handlePhonePrefixChange}
               required
-              className={`w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 ${
+              className={`w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 bg-gray-50 ${
                 phoneError && !phonePrefix
                   ? 'border-red-500 focus:ring-red-500'
                   : 'border-gray-300 focus:ring-blue-500'
@@ -341,7 +344,7 @@ export function PatientForm({ onSubmit, onInputChange }: PatientFormProps) {
               {countries.length > 0 ? (
                 countries.map((country) => (
                   <option key={country.code} value={country.phoneCode}>
-                    {country.phoneCode}
+                    {country.name} ({country.phoneCode})
                   </option>
                 ))
               ) : (

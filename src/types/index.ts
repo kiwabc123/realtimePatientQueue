@@ -25,4 +25,6 @@ export interface Patient extends PatientFormData {
   createdAt: Date;
   lastUpdated: Date;
   sessionId: string;
+  notes?: string;
+  queueNumber?: number;
 }

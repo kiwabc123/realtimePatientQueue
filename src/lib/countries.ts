@@ -41,15 +41,29 @@ export async function fetchCountries(): Promise<Country[]> {
   }
 
   try {
-    const response = await fetch('https://restcountries.com/v3.1/all?fields=name,cca2');
+    const response = await fetch('https://restcountries.com/v3.1/all?fields=name,cca2,idd');
     const data = await response.json();
 
     countriesCache = data
-      .map((country: any) => ({
-        name: country.name?.common || country.name?.official || 'Unknown',
-        code: country.cca2,
-        phoneCode: phoneCountryCodes[country.cca2] || '',
-      }))
+      .map((country: any) => {
+        let phoneCode = '';
+        
+        // Extract phone code from IDD data
+        if (country.idd?.root && country.idd?.suffixes && country.idd.suffixes.length > 0) {
+          // Use first suffix for most cases, but handle special cases
+          const suffix = country.idd.suffixes[0];
+          phoneCode = country.idd.root + suffix;
+        } else {
+          // Fallback to hardcoded mapping
+          phoneCode = phoneCountryCodes[country.cca2] || '';
+        }
+        
+        return {
+          name: country.name?.common || country.name?.official || 'Unknown',
+          code: country.cca2,
+          phoneCode: phoneCode,
+        };
+      })
       .filter((c: Country) => c.phoneCode) // Only include countries with phone codes
       .sort((a: Country, b: Country) => a.name.localeCompare(b.name));
 
