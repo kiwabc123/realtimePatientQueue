@@ -235,7 +235,23 @@ npm run build
 npm start
 ```
 
-## 🐛 Troubleshooting
+## � Future Enhancements
+
+### Smart Input Validation (On-Blur Features)
+- [ ] **Email Verification on Blur**: Check email existence via API when field loses focus
+- [ ] **Duplicate Patient Detection**: Check if patient already registered using phone/email
+- [ ] **Real-time Address Validation**: Validate address format on blur
+- [ ] **Name Autocomplete on Blur**: Suggest corrections for name typos
+- [ ] **Phone Number Validation on Blur**: Enhanced number format checking
+
+### Field-Level Enhancements
+- [ ] **Auto-fill Address Fields**: Integrate with address lookup API (Google Places)
+- [ ] **DOB Auto-calculation**: Show age when birth date is selected
+- [ ] **Phone Code Auto-detect**: Auto-select country code from phone number format
+- [ ] **Email Domain Validation**: Check for typos in common domains (gmail.com → gmial.com)
+- [ ] **Lazy Loading Validation**: Defer expensive checks to after user leaves field
+
+## �🐛 Troubleshooting
 
 ### SSE Connection Not Working
 ```bash
