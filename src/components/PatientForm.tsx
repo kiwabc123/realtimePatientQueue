@@ -163,8 +163,11 @@ export function PatientForm({ onSubmit, onInputChange }: PatientFormProps) {
         icon: 'error',
         title: 'Invalid Email',
         text: emailError,
-        confirmButtonColor: '#3085d6',
+        toast: true,
         position: 'top-end',
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
       });
       return;
     }
@@ -175,8 +178,11 @@ export function PatientForm({ onSubmit, onInputChange }: PatientFormProps) {
         icon: 'error',
         title: 'Invalid Phone Number',
         text: phoneError,
-        confirmButtonColor: '#3085d6',
+        toast: true,
         position: 'top-end',
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
       });
       return;
     }
@@ -184,13 +190,16 @@ export function PatientForm({ onSubmit, onInputChange }: PatientFormProps) {
     setIsSubmitting(true);
     onSubmit(formData);
     
-    // Show success alert
+    // Show success toast
     await Swal.fire({
       icon: 'success',
       title: 'Success!',
       text: 'Patient registration submitted successfully',
-      confirmButtonColor: '#3085d6',
+      toast: true,
       position: 'top-end',
+      showConfirmButton: false,
+      timer: 3000,
+      timerProgressBar: true,
     });
     
     setTimeout(() => setIsSubmitting(false), 2000);
